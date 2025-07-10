@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 0 0% 7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 89 100% 50%; /* Electric Lime */
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 157 100% 41%; /* Neon Emerald */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 29 100% 50%; /* Tangerine Orange */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 89 100% 50%; /* Electric Lime */
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 99%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 99%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 99%;
+
+    --primary: 89 100% 50%;
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 157 100% 41%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 99%;
+
+    --destructive: 29 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 89 100% 50%; /* Electric Lime */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+    scroll-padding-bottom: 100px;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-snap-align: center;
+    scroll-snap-align: end;
+    scroll-snap-align: start;
+    scroll-snap-align: end;
+    padding-top: 60px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sora font-semibold tracking-tight;
+  }
+  
+  /* Improve readability of text */
+  p, li, span, a {
+    @apply text-balance;
+  }
+
+  /* Better focus styles for accessibility */
+  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    @apply outline-none ring-2 ring-electricLime ring-offset-2 ring-offset-white;
+  }
+
+  /* Fluid typography for better responsiveness */
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg md:text-xl;
+  }
+
+  /* Make responsive images beautiful */
+  img {
+    @apply max-w-full h-auto object-cover;
+  }
+  
+  /* Add smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Improve responsive table display */
+  table {
+    @apply w-full;
+  }
+  
+  @media (max-width: 640px) {
+    table {
+      @apply block overflow-x-auto;
+    }
+  }
+  
+  /* Ensure form elements are easier to use on mobile */
+  input, select, textarea, button {
+    @apply text-base px-4 py-3 rounded-full w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  .glass-effect {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  .pulse-on-hover {
+    @apply hover:animate-pulse;
+  }
+  
+  /* Mobile-friendly tap targets */
+  .mobile-tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Hide scrollbar but allow scrolling */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  /* Image loading placeholders */
+  .image-loading-placeholder {
+    @apply bg-gray-200 animate-pulse;
+  }
+  
+  /* Responsive containers */
+  .container-xs {
+    @apply max-w-xl mx-auto px-4 md:px-6;
+  }
+  
+  .container-sm {
+    @apply max-w-3xl mx-auto px-4 md:px-6;
+  }
+  
+  .container-md {
+    @apply max-w-5xl mx-auto px-4 md:px-6;
+  }
+  
+  .container-lg {
+    @apply max-w-7xl mx-auto px-4 md:px-6;
+  }
+  
+  /* Responsive grids */
+  .grid-responsive-sm {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6;
+  }
+  
+  .grid-responsive-md {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6;
+  }
+  
+  /* Responsive vertical spacing */
+  .section-spacing {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+  
+  /* Hidden on mobile only */
+  .hidden-mobile {
+    @apply hidden sm:block;
+  }
+  
+  /* Visible on mobile only */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+}
+
+/* Liquid Glass Effect */
+.liquid-glass {
+  background: linear-gradient(135deg, #a3e4d7, #6dd5ed, #a3e4d7);
+  background-size: 200% 200%;
+  animation: liquidFlow 5s ease infinite;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background-position 0.5s ease;
+}
+
+.liquid-glass:hover {
+  background-position: 100% 100%;
+  transform: scale(1.05);
+}
+
+@keyframes liquidFlow {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .swiper-slide img {
+    object-fit: cover;
+    height: 60vh;
+  }
+  .swiper-slide {
+    height: 60vh !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .swiper-slide img {
+    object-fit: contain;
+    height: 100%;
+  }
+  .swiper-slide {
+    height: 100% !important;
+  }
+}
