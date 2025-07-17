@@ -31,9 +31,7 @@
     --destructive: 29 100% 50%; /* Tangerine Orange */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 89 100% 50%; /* Electric Lime */
+     /* Changed from Electric Lime to neutral gray */
 
     --radius: 0.75rem;
   }
@@ -63,9 +61,7 @@
     --destructive: 29 100% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 89 100% 50%; /* Electric Lime */
+   /* Changed from Electric Lime to neutral gray */
   }
 }
 
@@ -87,7 +83,8 @@
     scroll-snap-align: end;
     scroll-snap-align: start;
     scroll-snap-align: end;
-    padding-top: 60px;
+    padding-top: 80px;
+    
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -99,9 +96,34 @@
     @apply text-balance;
   }
 
-  /* Better focus styles for accessibility */
-  a:focus, button:focus, input:focus, select:focus, textarea:focus {
-    @apply outline-none ring-2 ring-electricLime ring-offset-2 ring-offset-white;
+  /* Remove default focus styles globally and replace with subtle styling */
+  *:focus {
+    outline: none;
+  }
+  
+  *:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Apply subtle focus styles only where needed for accessibility */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid rgba(0, 0, 0, 0.1);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: none;
+    }
   }
 
   /* Fluid typography for better responsiveness */

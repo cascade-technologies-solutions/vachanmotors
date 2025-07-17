@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { MapPin, Search, ChevronDown, ChevronRight } from 'lucide-react';
+import { MapPin, Search, ChevronDown, ChevronRight, Wrench, BatteryFull, Cog, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -39,130 +38,8 @@ const serviceCentersData: CityData[] = [
         email: 'vachanmpl@gmail.com',
         coordinates: [15.351989421375597, 75.11452588014835]
       },
-  //    {
-  //       id: 2,
-  //       name: 'Vachan South Delhi',
-  //       address: '45 Lajpat Nagar Market, New Delhi, 110024',
-  //       phone: '+91 11 2345 6789',
-  //       ema il: 'delhi.south@vachanmotors.com',
-  //       coordinates: [28.5700, 77.2300]
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Mumbai',
-  //   centers: [
-  //     {
-  //       id: 3,
-  //       name: 'Vachan Andheri',
-  //       address: '78 Andheri East, Mumbai, 400069',
-  //       phone: '+91 22 3456 7890',
-  //       email: 'mumbai.andheri@vachanmotors.com',
-  //       coordinates: [19.1136, 72.8697]
-  //     },
-  //     {
-  //       id: 4,
-  //       name: 'Vachan South Mumbai',
-  //       address: '12 Colaba Market, Mumbai, 400005',
-  //       phone: '+91 22 2234 5678',
-  //       email: 'mumbai.south@vachanmotors.com',
-  //       coordinates: [18.9067, 72.8147]
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Bengaluru',
-  //   centers: [
-  //     {
-  //       id: 5,
-  //       name: 'Vachan Electronic City',
-  //       address: '234 Electronic City Phase 1, Bengaluru, 560100',
-  //       phone: '+91 80 4567 8901',
-  //       email: 'bengaluru.ecity@vachanmotors.com',
-  //       coordinates: [12.8399, 77.6770]
-  //     },
-  //     {
-  //       id: 6,
-  //       name: 'Vachan Whitefield',
-  //       address: '56 ITPL Main Road, Whitefield, Bengaluru, 560066',
-  //       phone: '+91 80 2345 6789',
-  //       email: 'bengaluru.whitefield@vachanmotors.com',
-  //       coordinates: [12.9698, 77.7500]
-  //     },
-  //     {
-  //       id: 7,
-  //       name: 'Vachan Indiranagar',
-  //       address: '78 100 Feet Road, Indiranagar, Bengaluru, 560038',
-  //       phone: '+91 80 8901 2345',
-  //       email: 'bengaluru.indiranagar@vachanmotors.com',
-  //       coordinates: [12.9719, 77.6412]
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Chennai',
-  //   centers: [
-  //     {
-  //       id: 8,
-  //       name: 'Vachan Anna Nagar',
-  //       address: '45 2nd Avenue, Anna Nagar, Chennai, 600040',
-  //       phone: '+91 44 4567 8901',
-  //       email: 'chennai.annanagar@vachanmotors.com',
-  //       coordinates: [13.0850, 80.2101]
-  //     },
-  //     {
-  //       id: 9,
-  //       name: 'Vachan T Nagar',
-  //       address: '34 G.N. Chetty Road, T. Nagar, Chennai, 600017',
-  //       phone: '+91 44 2345 6789',
-  //       email: 'chennai.tnagar@vachanmotors.com',
-  //       coordinates: [13.0418, 80.2341]
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Hyderabad',
-  //   centers: [
-  //     {
-  //       id: 10,
-  //       name: 'Vachan Hitech City',
-  //       address: '89 Cyber Towers, Hitech City, Hyderabad, 500081',
-  //       phone: '+91 40 4567 8901',
-  //       email: 'hyderabad.hitech@vachanmotors.com',
-  //       coordinates: [17.4435, 78.3772]
-  //     },
-  //     {
-  //       id: 11,
-  //       name: 'Vachan Banjara Hills',
-  //       address: '23 Road No. 12, Banjara Hills, Hyderabad, 500034',
-  //       phone: '+91 40 2345 6789',
-  //       email: 'hyderabad.banjara@vachanmotors.com',
-  //       coordinates: [17.4156, 78.4347]
-  //     }
-  //   ]
-  // },
-  // {
-  //   name: 'Kolkata',
-  //   centers: [
-  //     {
-  //       id: 12,
-  //       name: 'Vachan Salt Lake',
-  //       address: '67 Sector 5, Salt Lake City, Kolkata, 700091',
-  //       phone: '+91 33 4567 8901',
-  //       email: 'kolkata.saltlake@vachanmotors.com',
-  //       coordinates: [22.5726, 88.4354]
-  //     },
-  //     {
-  //       id: 13,
-  //       name: 'Vachan Park Street',
-  //       address: '78 Park Street, Kolkata, 700016',
-  //       phone: '+91 33 2345 6789',
-  //       email: 'kolkata.parkstreet@vachanmotors.com',
-  //       coordinates: [22.5551, 88.3518]
-  //     }
-  //   ]
-  // }
-] }
+    ]
+  }
 ];
 
 const ServiceCenters = () => {
@@ -188,12 +65,17 @@ const ServiceCenters = () => {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] md:min-h-[70vh] flex items-center bg-grey-800 text-white overflow-hidden">
+      <section className="relative min-h-[50vh] md:min-h-[70vh] flex items-center bg-grey-800 text-white overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
           <img 
-             src={serviceimg}
-             alt="Contact us"
-             className="w-full h-full object-cover md:object-contain opacity-100 "
+            src={serviceimg}
+            alt="Contact us"
+            className="w-full h-full object-contain opacity-100"
+            style={{ minHeight: '100%', minWidth: '100%' }}
+            onError={(e) => {
+              console.error(`Image failed to load: ${serviceimg}`);
+              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
@@ -202,11 +84,11 @@ const ServiceCenters = () => {
           <div className="max-w-3xl animate-fade-in">
             <div className="w-20 h-1 bg-electricLime mb-8"></div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              ⚡Service Centers <span className="text-electricLime">Network</span>
+              Service Centers <span className="text-orange-500">Network</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90">
+            {/* <p className="text-xl md:text-2xl mb-8 opacity-90">
               Find your nearest Vachan Motors service center for maintenance, repairs, and support.
-            </p>
+            </p> */}
             
             {/* <div className="relative max-w-md">
               <Input
@@ -366,28 +248,28 @@ const ServiceCenters = () => {
             {[
               {
                 title: 'Expert Maintenance',
-                description: 'Stay smooth, stay strong our scheduled servicing keeps your EV in peak condition for the long haul.',
-                icon: '🔧'
+                // description: 'Stay smooth, stay strong our scheduled servicing keeps your EV in peak condition for the long haul.',
+                icon: <Wrench size={31} className="text-orange-500" />,
               },
               {
                 title: 'Advanced Battery Care',
-                description: 'From diagnostics to upgrades, we optimize battery life so your journeys never fall short.',
-                icon: '🔋'
+                // description: 'From diagnostics to upgrades, we optimize battery life so your journeys never fall short.',
+                icon: <BatteryFull size={31} className="text-orange-500" />,
               },
               {
                 title: 'Genuine Repairs & Parts',
-                description: 'Fast fixes, trusted parts — all handled by trained technicians using 100% Vachan-certified components.',
-                icon: '⚙️'
+                // description: 'Fast fixes, trusted parts — all handled by trained technicians using 100% Vachan-certified components.',
+                icon: <Cog size={31} className="text-orange-500" />,
               },
               {
                 title: '24/7 Roadside Assistance',
-                description: 'Because peace of mind should come standard. We’ve got your back, wherever the road takes you.',
-                icon: '🚨'
+                // description: 'Because peace of mind should come standard. We’ve got your back, wherever the road takes you.',
+                icon: <AlertTriangle size={31} className="text-orange-500" />,
               }
             ].map((service, index) => (
               <div 
                 key={index} 
-                className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                className="p-8 bg-white rounded-lg shadow-sm border border-gray-100 hover:border-electricLime hover:shadow-md flex flex-col items-center text-center"
               >
                 <div className="text-4xl mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
@@ -419,7 +301,7 @@ const ServiceCenters = () => {
                 },
                 {
                   question: 'What is covered under warranty?',
-                  answer: 'Our standard warranty covers all manufacturing defects for 3 years or 100,000 km, whichever comes first. The battery is separately warranted for 5 years or 150,000 km. Please refer to your warranty booklet for complete details.'
+                  answer: 'Our standard warranty covers all manufacturing defects for 3 years or 80,000 km.'
                 },
                 {
                   question: 'How long does a typical service take?',
@@ -457,7 +339,7 @@ const ServiceCenters = () => {
                 size="lg"
                 className="bg-jetBlack text-white hover:bg-gray-800"
               >
-                Call Helpline: 1800-123-4567
+                Call Helpline: +91 90350-82974
               </Button>
             </div>
           </div>

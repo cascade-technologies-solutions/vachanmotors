@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Check, ArrowRight, Zap, Battery, Shield, Truck } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Check, ArrowRight, Zap, Battery, Shield, Truck, AlignCenter, Leaf, Wallet, VolumeX, Currency, IndianRupeeIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,6 +11,7 @@ import bhoomiP from '../assets/DS.png';
 import gajaL from '../assets/L5.png';
 import gajaC from '../assets/L5C.png';
 import jeevaL from '../assets/L3C.png';
+import group from '../assets/L5_Passenger-Group.png';
 
 const productsData = [
   {
@@ -23,7 +24,7 @@ const productsData = [
       seating: '6+1',
       range: '200 KM',
       topSpeed: '55 KM/H',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '5Kw / 11Kw (Peak) Sine Wave Motor',
       batteryCapacity: '230 Ah Li-ion Battery',
     },
@@ -46,7 +47,7 @@ const productsData = [
     specs: {
       seating: '4+1',
       range: '130 KM',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '1200W BLDC Motor',
       batteryCapacity: '105 Ah Li-ion Battery',
     },
@@ -68,7 +69,7 @@ const productsData = [
     specs: {
       seating: '4+1',
       range: '120 KM',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '1250W BLDC Motor',
       batteryCapacity: '105 Ah Li-ion Battery',
     },
@@ -91,7 +92,7 @@ const productsData = [
       payloadCapacity: '750 Kg (ICAT Approved)',
       cargoSize: '6 x 4.8 x 1 feet (Open)',
       range: '170 KM',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '5Kw / 11Kw (Peak) BLDC Motor',
       batteryCapacity: '16 KWh Battery',
     },
@@ -114,7 +115,7 @@ const productsData = [
       payloadCapacity: '750 Kg (ICAT Approved)',
       cargoSize: '6 x 4.8 x 5 feet (Closed)',
       range: '170 KM',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '5Kw / 11Kw (Peak) BL inWave Motor',
       batteryCapacity: '16 KWh Battery',
     },
@@ -130,13 +131,13 @@ const productsData = [
   {
     id: 'jeeva-l',
     name: 'JEEVA-L',
-    tagline: 'Light Cargo Efficiency',
+    tagline: 'Light Cargo Efficiency with Customization Body',
     description: 'The JEEVA-L is designed for light cargo transport, offering efficiency and reliability for small to medium loads.',
     image: jeevaL,
     specs: {
       payloadCapacity: '350 Kg (ICAT Approved)',
       range: '130 KM',
-      batteryWarranty: '3 Years / 80,000 KM',
+      batteryWarrantyOnBattery: '3 Years / 80,000 KM',
       motorPower: '1200W BLDC Motor',
       batteryCapacity: '105 Ah Li-ion Battery',
     },
@@ -153,30 +154,47 @@ const productsData = [
 
 const benefitsData = [
   {
-    icon: <Zap size={24} className="text-electricLime" />,
-    title: '💸 Cut Operating Costs by Up to 70%',
-    description: 'Slash fuel expenses and enjoy unbeatable efficiency with every charge — your bottom line will thank you.'
+    icon: <Leaf size={31} className="text-orange-500" />,
+    title: ' Eco Friendly ',
+    // description: 'Slash fuel expenses and enjoy unbeatable efficiency with every charge — your bottom line will thank you.'
   },
   {
-    icon: <Battery size={24} className="text-electricLime" />,
-    title: '🛠️ Drive More, Maintain Less',
-    description: 'With fewer moving parts and no oil changes, our EVs keep you on the road and out of the workshop.'
+    icon: <Wallet size={31} className="text-orange-500" />,
+    title: ' Highly Affordable',
+    // description: 'With fewer moving parts and no oil changes, our EVs keep you on the road and out of the workshop.'
   },
   {
-    icon: <Shield size={24} className="text-electricLime" />,
-    title: '🎁 Unlock Government Rewards',
-    description: 'Enjoy exclusive incentives, tax savings, and EV subsidies designed to fuel your growth.'
+    icon: <VolumeX size={31} className="text-orange-500" />,
+    title: ' Quiter & Smoother Ride',
+    // description: 'Enjoy exclusive incentives, tax savings, and EV subsidies designed to fuel your growth.'
   },
   {
-    icon: <Truck size={24} className="text-electricLime" />,
-    title: '🚀 Invest in Tomorrow, Today',
-    description: 'Future-ready and regulation-proof — go electric now and stay ahead of rising fuel costs and emission laws.'
+    icon: <IndianRupeeIcon size={31} className="text-orange-500" />,
+    title: ' Pocket Friendly Operating cost',
+    // description: 'Future-ready and regulation-proof — go electric now and stay ahead of rising fuel costs and emission laws.'
   }
 ];
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(productsData[0]);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('specs'); // Default to specs tab
+  const detailsRef = useRef<HTMLDivElement>(null);
+
+  const handleProductSelect = (product: typeof productsData[0]) => {
+    setSelectedProduct(product);
+    setActiveTab('specs'); // Open specs tab first
+    if (detailsRef.current) {
+      detailsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Optionally switch to features after a delay (e.g., 3 seconds)
+      setTimeout(() => setActiveTab('features'), 3000);
+    }
+  };
+
+  useEffect(() => {
+    if (detailsRef.current) {
+      detailsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [selectedProduct]);
 
   const handleDownload = async () => {
     try {
@@ -202,12 +220,13 @@ const Products = () => {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] md:min-h-[70vh] flex items-center bg-grey-800 text-white overflow-hidden">
+      <section className="relative min-h-[50vh] md:min-h-[70vh] flex items-center bg-grey-800 text-white overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
           <img 
             src={productimg}
             alt="Contact us"
-            className="w-full h-full object-cover md:object-contain opacity-100"
+            className="w-full h-full object-contain opacity-100"
+            style={{ minHeight: '100%', minWidth: '100%' }}
             onError={(e) => {
               console.error(`Image failed to load: ${productimg}`);
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
@@ -220,11 +239,11 @@ const Products = () => {
           <div className="max-w-3xl animate-fade-in">
             <div className="w-20 h-1 bg-electricLime mb-8"></div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              ⚡ Our Electric <span className="text-electricLime">Vehicles</span>
+             Our Electric <span className="text-orange-500">Vehicles</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90">
+            {/* <p className="text-xl md:text-2xl mb-8 opacity-90">
               Boldly engineered. Effortlessly electric. Explore our next-gen three-wheelers built to power the future of India’s mobility — clean, reliable, and ready for every road.
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
@@ -241,9 +260,9 @@ const Products = () => {
                     ? 'bg-electricLime text-jetBlack shadow-lg' 
                     : 'bg-gray-100 hover:bg-gray-200'
                 }`}
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => handleProductSelect(product)}
               >
-                <h3 className="text-xl font-bold">{product.name}</h3>
+                <h3 className="text-xl font-bold text-center">{product.name}</h3>
                 <p className={selectedProduct.id === product.id ? 'text-jetBlack/80' : 'text-gray-600'}>
                   {product.tagline}
                 </p>
@@ -251,13 +270,13 @@ const Products = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+          <div ref={detailsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
             <div className="relative group">
               <div className="overflow-hidden rounded-xl">
                 <img 
                   src={selectedProduct.image} 
                   alt={selectedProduct.name}
-                  className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-auto object-contain "
                   onError={(e) => {
                     console.error(`Image failed to load: ${selectedProduct.image}`);
                     (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
@@ -301,7 +320,7 @@ const Products = () => {
 
           {/* Product Details Tabs */}
           <Tabs 
-            defaultValue="overview" 
+            defaultValue="specs" 
             value={activeTab}
             onValueChange={setActiveTab}
             className="w-full"
@@ -354,11 +373,9 @@ const Products = () => {
             {benefitsData.map((benefit, index) => (
               <div 
                 key={index} 
-                className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:border-electricLime border border-transparent"
+                className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 hover:border-electricLime border border-transparent flex flex-col items-center text-center"
               >
-                <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                  {benefit.icon}
-                </div>
+                <div className="text-4xl mb-4">{benefit.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
                 <p className="text-gray-600">{benefit.description}</p>
               </div>
@@ -387,9 +404,9 @@ const Products = () => {
             </div>
             <div className="flex justify-center">
               <img 
-                src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                src={group}
                 alt="Electric vehicle charging"
-                className="rounded-lg shadow-lg"
+                className="w-full h-auto max-h-[400px] object-contain rounded-lg shadow-lg"
               />
             </div>
           </div>
