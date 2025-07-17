@@ -60,7 +60,7 @@ const App = () => {
         
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/vachanamotors">
+        <BrowserRouter basename="/vachanmotors">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
