@@ -17,7 +17,7 @@ const productsData = [
   {
     id: 'gaja-p',
     name: 'GAJA-P',
-    tagline: 'Power-Packed Passenger Mobility',
+    // tagline: 'Power-Packed Passenger Mobility',
     description: 'Designed for high-capacity urban transport, the GAJA-P combines robust performance with exceptional range for seamless passenger mobility.',
     image: gajaP,
     specs: {
@@ -41,7 +41,7 @@ const productsData = [
   {
     id: 'jeeva-p',
     name: 'JEEVA-P',
-    tagline: 'Compact and Efficient',
+    // tagline: 'Compact and Efficient',
     description: 'The JEEVA-P is perfect for smaller groups, offering a balance of efficiency and comfort for short to medium city commutes.',
     image: jeevaP,
     specs: {
@@ -63,7 +63,7 @@ const productsData = [
   {
     id: 'bhoomi-p',
     name: 'BHOOMI-P',
-    tagline: 'Affordable Urban Transport',
+    // tagline: 'Affordable Urban Transport',
     description: 'The BHOOMI-P offers reliable passenger transport with a focus on affordability and efficiency for urban environments.',
     image: bhoomiP,
     specs: {
@@ -85,7 +85,7 @@ const productsData = [
   {
     id: 'gaja-l',
     name: 'GAJA-L',
-    tagline: 'Heavy-Duty Cargo Solution',
+    // tagline: 'Heavy-Duty Cargo Solution',
     description: 'The GAJA-L is built for heavy-duty cargo transport, offering a robust payload capacity and long range for commercial needs.',
     image: gajaL,
     specs: {
@@ -108,7 +108,7 @@ const productsData = [
   {
     id: 'gaja-c',
     name: 'GAJA-C',
-    tagline: 'Secure Cargo Transport',
+    // tagline: 'Secure Cargo Transport',
     description: 'The GAJA-C provides secure cargo transport with a closed cargo area, ideal for protecting goods during transit.',
     image: gajaC,
     specs: {
@@ -131,7 +131,7 @@ const productsData = [
   {
     id: 'jeeva-l',
     name: 'JEEVA-L',
-    tagline: 'Light Cargo Efficiency with Customization Body',
+    // tagline: 'Light Cargo Efficiency with Customization Body',
     description: 'The JEEVA-L is designed for light cargo transport, offering efficiency and reliability for small to medium loads.',
     image: jeevaL,
     specs: {
