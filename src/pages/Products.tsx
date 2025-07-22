@@ -7,7 +7,7 @@ import PageLayout from '@/components/layout/PageLayout';
 import productimg from '../assets/L5_Cargo-6.png';
 import gajaP from '../assets/Gaja-P.png';
 import jeevaP from '../assets/L3_Pass-4.png';
-import bhoomiP from '../assets/DS.png';
+import bhoomiP from '../assets/DS.webp';
 import gajaL from '../assets/L5.png';
 import gajaC from '../assets/L5C.png';
 import jeevaL from '../assets/L3C.png';

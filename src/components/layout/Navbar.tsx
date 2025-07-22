@@ -54,7 +54,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center space-x-3 z-20">
           <img src={logo} alt="Vachan Motors Logo" className="h-12 w-auto transform hover:scale-105 transition-transform duration-300" />
           <span className={`text-2xl md:text-3xl font-sora font-extrabold tracking-tight ${
-            (!isScrolled && !mobileMenuOpen) ? 'bg-clip-text text-transparent bg-gradient-to-r from-electricLime to-neonEmerald' : 'text-jetBlack'
+            (!isScrolled && !mobileMenuOpen) ? 'bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-500' : 'text-orange-500'
           }`}>
             VACHAN MOTORS
           </span>
@@ -131,8 +131,8 @@ const Navbar = () => {
                         onClick={() => setMobileMenuOpen(false)}
                         className={`p-4 text-base font-sora font-semibold rounded-xl transition-all duration-300 ${
                           location.pathname === item.path 
-                            ? 'bg-gradient-to-r from-electricLime/20 to-neonEmerald/20 text-jetBlack' 
-                            : 'text-gray-700 hover:bg-gray-100/50 hover:text-electricLime hover:scale-105'
+                            ? 'bg-gradient-to-r from-electricLime/20 to-orange-500/20 text-jetBlack' 
+                            : 'text-gray-700 hover:bg-gray-100/50 hover:text-orange-500 hover:scale-105'
                         }`}
                       >
                         {item.name}
