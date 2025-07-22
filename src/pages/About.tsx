@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Sparkles, Leaf, Shield, Network, Recycle, ShieldCheck, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
-import aboutimg from '../assets/L5_Passenger-Group.png';
-import aboutimg1 from '../assets/L3_Pass-with_people.png';
+import aboutimg from '../assets/L5_Passenger-Group.webp';
+import aboutimg1 from '../assets/L3_Pass-with_people.webp';
 
 const milestones = [
   {

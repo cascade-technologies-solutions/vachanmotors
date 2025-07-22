@@ -4,13 +4,13 @@ import { Check, Zap, Award, BatteryCharging, TrendingDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import PageLayout from '@/components/layout/PageLayout';
-import heroImage1 from '../assets/L5_Cargo-Group.png';
-import heroImage2 from '../assets/L3_Pass_Group.png';
-import heroImage3 from '../assets/L5C.png';
-import heroImage4 from '../assets/L3_Pass-4.png';
+import heroImage1 from '../assets/L5_Cargo-Group.webp';
+import heroImage2 from '../assets/L3_Pass_Group.webp';
+import heroImage3 from '../assets/L5C.webp';
+import heroImage4 from '../assets/L3_Pass-4.webp';
 import heroImage5 from '../assets/L5_Passenger-Group.png';
-import p7 from '../assets/Gaja-P.png';
-import p4 from '../assets/L3_Pass-4.png';
+import p7 from '../assets/Gaja-P.webp';
+import p4 from '../assets/L3_Pass-4.webp';
 
 const statsData = [
   { id: 1, label: 'Range Per Charge', value: '200', unit: 'KM' },

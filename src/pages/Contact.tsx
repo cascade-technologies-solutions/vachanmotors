@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
-import contactimg from '../assets/L5_Cargo-Group.png';
+import contactimg from '../assets/L5_Cargo-Group.webp';
 
 const contactInfo = {
   address: 'Vachan Motors Pvt. Ltd. B25, Industrial Estate 1st Gate, Gokul Road, Hubballi – 580030',

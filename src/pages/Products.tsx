@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PageLayout from '@/components/layout/PageLayout';
-import productimg from '../assets/L5_Cargo-6.png';
-import gajaP from '../assets/Gaja-P.png';
+import productimg from '../assets/L5_Cargo-6.webp';
+import gajaP from '../assets/Gaja-P.webp';
 import jeevaP from '../assets/L3_Pass-4.png';
 import bhoomiP from '../assets/DS.webp';
-import gajaL from '../assets/L5.png';
-import gajaC from '../assets/L5C.png';
-import jeevaL from '../assets/L3C.png';
-import group from '../assets/L5_Passenger-Group.png';
+import gajaL from '../assets/L5.webp';
+import gajaC from '../assets/L5C.webp';
+import jeevaL from '../assets/L3C.webp';
+import group from '../assets/L5_Passenger-Group.webp';
 
 const productsData = [
   {

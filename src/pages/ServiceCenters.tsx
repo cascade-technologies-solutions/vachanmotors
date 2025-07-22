@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import PageLayout from '@/components/layout/PageLayout';
-import serviceimg from '../assets/L3_Pass_Group.png';
+import serviceimg from '../assets/L3_Pass_Group.webp';
 
 interface ServiceCenter {
   id: number;
