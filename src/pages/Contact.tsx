@@ -74,7 +74,7 @@ const Contact = () => {
           <div className="max-w-3xl animate-fade-in">
             <div className="w-20 h-1 bg-electricLime mb-8"></div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              ⚡Get In Touch<span className="text-electricLime"> with Vachan Motors</span>
+              Get In Touch<span className="text-electricLime"> with Vachan Motors</span>
             </h1>
             {/* <p className="text-xl md:text-2xl mb-8 opacity-90">
               Whether you're ready to switch to electric or just have a question — our team is here to support your journey every step of the way.
@@ -365,10 +365,10 @@ const Contact = () => {
                           required
                         >
                           <option value="">Select Range</option>
-                          <option value="₹10-20 Lakhs">₹10-20 Lakhs</option>
-                          <option value="₹20-50 Lakhs">₹20-50 Lakhs</option>
-                          <option value="₹50 Lakhs - 1 Crore">₹50 Lakhs - 1 Crore</option>
-                          <option value="Above 1 Crore">Above 1 Crore</option>
+                          <option value="₹10-20 Lakhs">₹10 Lakhs</option>
+                          <option value="₹20-50 Lakhs">₹25 Lakhs</option>
+                          <option value="₹50 Lakhs - 1 Crore">₹50 Lakhs </option>
+                          {/* <option value="Above 1 Crore">Above 1 Crore</option> */}
                         </select>
                       </div>
                     </div>

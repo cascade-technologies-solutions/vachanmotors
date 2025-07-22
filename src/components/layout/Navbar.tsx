@@ -53,7 +53,7 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between py-4 px-6 md:px-8 xl:px-12">
         <Link to="/" className="flex items-center space-x-3 z-20">
           <img src={logo} alt="Vachan Motors Logo" className="h-12 w-auto transform hover:scale-105 transition-transform duration-300" />
-          <span className={`text-2xl md:text-3xl font-sora font-extrabold tracking-tight ${
+          <span className={`text-xl md:text-3xl font-sora font-extrabold tracking-tight ${
             (!isScrolled && !mobileMenuOpen) ? 'bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-500' : 'text-orange-500'
           }`}>
             VACHAN MOTORS
@@ -69,7 +69,7 @@ const Navbar = () => {
               className={`font-sora font-semibold text-sm xl:text-base transition-all duration-500 relative group ${
                 location.pathname === item.path 
                   ? 'text-jetBlack' 
-                  : 'text-gray-700 hover:text-electricLime hover:bg-gray-100/50 hover:scale-105'
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-gray-100/50 hover:scale-105'
               }`}
             >
               {item.name}
@@ -117,7 +117,7 @@ const Navbar = () => {
             <SheetContent side="right" className="w-[80vw] sm:w-[300px] p-0 bg-white/95 backdrop-blur-xl">
               <div className="flex flex-col h-full">
                 <div className="p-6 pb-3 border-b border-gray-100">
-                  <span className="text-2xl font-sora font-extrabold text-jetBlack tracking-tight">
+                  <span className="text-2xl font-sora font-extrabold text-orange-500 tracking-tight">
                     VACHAN MOTORS
                   </span>
                 </div>

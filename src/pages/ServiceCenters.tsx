@@ -262,7 +262,7 @@ const ServiceCenters = () => {
                 icon: <Cog size={31} className="text-orange-500" />,
               },
               {
-                title: '24/7 Roadside Assistance',
+                title: 'Expert Assistance',
                 // description: 'Because peace of mind should come standard. We’ve got your back, wherever the road takes you.',
                 icon: <AlertTriangle size={31} className="text-orange-500" />,
               }

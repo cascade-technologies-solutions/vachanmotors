@@ -39,7 +39,7 @@ const milestones = [
   },
   {
     year: 2025,
-    title: 'National Presence',
+    title: 'Karnataka Presence',
     description: 'READY FOR EXPANSION.'
   },
 ];

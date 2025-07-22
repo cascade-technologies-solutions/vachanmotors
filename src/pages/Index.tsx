@@ -36,7 +36,7 @@ const featuresData = [
   },
   {
     id: 4,
-    title: 'Award Winning Design',
+    title: 'Make In India',
     icon: <Award className="h-6 w-6 md:h-8 md:w-8 text-orange-500" />
   }
 ];
