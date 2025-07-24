@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Search, ChevronDown, ChevronRight, Wrench, BatteryFull, Cog, AlertTriangle } from 'lucide-react';
+import { MapPin, Wrench, BatteryFull, Cog, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -12,21 +12,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import PageLayout from '@/components/layout/PageLayout';
 import serviceimg from '../assets/L3_Pass_Group.webp';
 
-interface ServiceCenter {
-  id: number;
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  coordinates: [number, number];
-}
+// GOOGLE SCRIPT ENDPOINT
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFr62GSBhs2cTPAl-AEEeuhLsuALkBbg3S2Z1uogSxfSN6aX3d6D1ZcftyX4qIuIMYTg/exec';
 
-interface CityData {
-  name: string;
-  centers: ServiceCenter[];
-}
-
-const serviceCentersData: CityData[] = [
+const serviceCentersData = [
   {
     name: 'Hubballi',
     centers: [
@@ -42,10 +31,25 @@ const serviceCentersData: CityData[] = [
   }
 ];
 
+const initialBookingForm = {
+  fullName: '',
+  phone: '',
+  vehicleModel: '',
+  preferredDate: '',
+  serviceType: '',
+};
+
 const ServiceCenters = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCenter, setSelectedCenter] = useState<ServiceCenter | null>(null);
-  
+  const [selectedCenter, setSelectedCenter] = useState(null);
+  const [bookingForm, setBookingForm] = useState(initialBookingForm);
+  const [submitting, setSubmitting] = useState(false);
+
+  // Replace with your toast if available
+  const showToast = ({ title, description }) => {
+    alert(`${title}\n${description}`);
+  };
+
   const filteredCities = serviceCentersData.filter(city => 
     city.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     city.centers.some(center => 
@@ -54,12 +58,59 @@ const ServiceCenters = () => {
     )
   );
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const openBookingForm = (center: ServiceCenter) => {
+  const openBookingForm = (center) => {
     setSelectedCenter(center);
+    setBookingForm(initialBookingForm);
+  };
+
+  const handleBookingChange = (e) => {
+    const { name, value } = e.target;
+    setBookingForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedCenter) return;
+
+    setSubmitting(true);
+
+    const payload = {
+      formType: 'ServiceBooking',
+      centerName: selectedCenter.name,
+      centerAddress: selectedCenter.address,
+      centerPhone: selectedCenter.phone,
+      ...bookingForm,
+    };
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      showToast({
+        title: 'Booking Submitted!',
+        description: "Your service booking has been received. We'll contact you soon.",
+      });
+
+      setBookingForm(initialBookingForm);
+      setSelectedCenter(null);
+    } catch (error) {
+      showToast({
+        title: 'Error!',
+        description: 'Something went wrong. Please try again later.',
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,7 +125,7 @@ const ServiceCenters = () => {
             style={{ minHeight: '100%', minWidth: '100%' }}
             onError={(e) => {
               console.error(`Image failed to load: ${serviceimg}`);
-              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
+              e.target.src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
@@ -86,20 +137,6 @@ const ServiceCenters = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Service Centers <span className="text-orange-500">Network</span>
             </h1>
-            {/* <p className="text-xl md:text-2xl mb-8 opacity-90">
-              Find your nearest Vachan Motors service center for maintenance, repairs, and support.
-            </p> */}
-            
-            {/* <div className="relative max-w-md">
-              <Input
-                type="text"
-                placeholder="Search by city or address..."
-                value={searchTerm}
-                onChange={handleSearch}
-                className="pl-10 pr-4 py-3 bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-white/70 focus:border-electricLime focus-visible:ring-electricLime"
-              />
-              <Search className="absolute top-1/2 left-3 transform -translate-y-1/2 text-white/70" size={18} />
-            </div> */}
           </div>
         </div>
       </section>
@@ -133,7 +170,7 @@ const ServiceCenters = () => {
                                 <p className="text-sm text-gray-600 mt-1">{center.address}</p>
                                 <p className="text-sm text-gray-600 mt-1">{center.phone}</p>
                               </div>
-                              <Dialog>
+                              <Dialog open={selectedCenter?.id === center.id} onOpenChange={open => !open && setSelectedCenter(null)}>
                                 <DialogTrigger asChild>
                                   <Button 
                                     size="sm"
@@ -149,38 +186,70 @@ const ServiceCenters = () => {
                                   </DialogHeader>
                                   <div className="py-4">
                                     <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                                      <h4 className="font-medium">{selectedCenter?.name}</h4>
-                                      <p className="text-sm text-gray-600">{selectedCenter?.address}</p>
-                                      <p className="text-sm text-gray-600">{selectedCenter?.phone}</p>
+                                      <h4 className="font-medium">{center.name}</h4>
+                                      <p className="text-sm text-gray-600">{center.address}</p>
+                                      <p className="text-sm text-gray-600">{center.phone}</p>
                                     </div>
-                                    <form className="space-y-4">
+                                    <form className="space-y-4" onSubmit={handleBookingSubmit}>
                                       <div>
                                         <label className="text-sm font-medium block mb-1">Full Name</label>
-                                        <Input type="text" placeholder="Your Name" />
+                                        <Input 
+                                          type="text" 
+                                          name="fullName"
+                                          value={bookingForm.fullName}
+                                          onChange={handleBookingChange}
+                                          placeholder="Your Name"
+                                          required
+                                        />
                                       </div>
                                       <div>
                                         <label className="text-sm font-medium block mb-1">Phone Number</label>
-                                        <Input type="tel" placeholder="+91 12345 67890" />
+                                        <Input 
+                                          type="tel" 
+                                          name="phone"
+                                          value={bookingForm.phone}
+                                          onChange={handleBookingChange}
+                                          placeholder="+91 12345 67890"
+                                          required
+                                        />
                                       </div>
                                       <div>
                                         <label className="text-sm font-medium block mb-1">Vehicle Model</label>
-                                        <select className="w-full rounded-md border border-gray-300 py-2 px-3">
+                                        <select 
+                                          name="vehicleModel"
+                                          value={bookingForm.vehicleModel}
+                                          onChange={handleBookingChange}
+                                          className="w-full rounded-md border border-gray-300 py-2 px-3"
+                                          required
+                                        >
                                           <option value="">Select Vehicle Model</option>
-                                          <option value="PASS 1+3">Gaja-P</option>
-                                          <option value="PASS 1+3">Jeeva-P</option>
-                                          <option value="PASS 1+3">Bhoomi-P</option>
-                                          <option value="PASS 1+6">Gaja-L</option>
-                                          <option value="PASS 1+6">Gaja-C</option>
-                                          <option value="PASS 1+6">Jeeva-L</option>
+                                          <option value="Gaja-P">Gaja-P</option>
+                                          <option value="Jeeva-P">Jeeva-P</option>
+                                          <option value="Bhoomi-P">Bhoomi-P</option>
+                                          <option value="Gaja-L">Gaja-L</option>
+                                          <option value="Gaja-C">Gaja-C</option>
+                                          <option value="Jeeva-L">Jeeva-L</option>
                                         </select>
                                       </div>
                                       <div>
                                         <label className="text-sm font-medium block mb-1">Preferred Date</label>
-                                        <Input type="date" />
+                                        <Input 
+                                          type="date" 
+                                          name="preferredDate"
+                                          value={bookingForm.preferredDate}
+                                          onChange={handleBookingChange}
+                                          required
+                                        />
                                       </div>
                                       <div>
                                         <label className="text-sm font-medium block mb-1">Service Type</label>
-                                        <select className="w-full rounded-md border border-gray-300 py-2 px-3">
+                                        <select 
+                                          name="serviceType"
+                                          value={bookingForm.serviceType}
+                                          onChange={handleBookingChange}
+                                          className="w-full rounded-md border border-gray-300 py-2 px-3"
+                                          required
+                                        >
                                           <option value="">Select Service Type</option>
                                           <option value="Regular Maintenance">Regular Maintenance</option>
                                           <option value="Repair">Repair</option>
@@ -191,8 +260,9 @@ const ServiceCenters = () => {
                                       <Button 
                                         type="submit" 
                                         className="w-full bg-electricLime text-jetBlack hover:bg-neonEmerald hover:text-white"
+                                        disabled={submitting}
                                       >
-                                        Submit Booking
+                                        {submitting ? "Submitting..." : "Submit Booking"}
                                       </Button>
                                     </form>
                                   </div>
@@ -248,22 +318,18 @@ const ServiceCenters = () => {
             {[
               {
                 title: 'Expert Maintenance',
-                // description: 'Stay smooth, stay strong our scheduled servicing keeps your EV in peak condition for the long haul.',
                 icon: <Wrench size={31} className="text-orange-500" />,
               },
               {
                 title: 'Advanced Battery Care',
-                // description: 'From diagnostics to upgrades, we optimize battery life so your journeys never fall short.',
                 icon: <BatteryFull size={31} className="text-orange-500" />,
               },
               {
                 title: 'Genuine Repairs & Parts',
-                // description: 'Fast fixes, trusted parts — all handled by trained technicians using 100% Vachan-certified components.',
                 icon: <Cog size={31} className="text-orange-500" />,
               },
               {
                 title: 'Expert Assistance',
-                // description: 'Because peace of mind should come standard. We’ve got your back, wherever the road takes you.',
                 icon: <AlertTriangle size={31} className="text-orange-500" />,
               }
             ].map((service, index) => (

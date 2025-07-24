@@ -13,6 +13,8 @@ const contactInfo = {
   hours: 'Monday - Saturday: 9:00 AM - 6:00 PM'
 };
 
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFr62GSBhs2cTPAl-AEEeuhLsuALkBbg3S2Z1uogSxfSN6aX3d6D1ZcftyX4qIuIMYTg/exec';
+
 const Contact = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('customer');
@@ -30,31 +32,74 @@ const Contact = () => {
     investmentCapacity: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    toast({
-      title: "Message Sent!",
-      description: "We've received your message and will get back to you soon.",
-    });
-    
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-      companyName: '',
-      city: '',
-      dealerType: '',
-      existingBusiness: '',
-      investmentCapacity: ''
-    });
+
+    let payload = {};
+
+    if (activeTab === 'customer') {
+      payload = {
+        formType: 'Customer',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      };
+    } else if (activeTab === 'dealer') {
+      payload = {
+        formType: 'Dealer',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        companyName: formData.companyName,
+        city: formData.city,
+        dealerType: formData.dealerType,
+        existingBusiness: formData.existingBusiness,
+        investmentCapacity: formData.investmentCapacity,
+        message: formData.message,
+      };
+    }
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      toast({
+        title: 'Message Sent!',
+        description: "We've received your message and will get back to you soon.",
+      });
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+        companyName: '',
+        city: '',
+        dealerType: '',
+        existingBusiness: '',
+        investmentCapacity: '',
+      });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: 'Error!',
+        description: 'Something went wrong. Please try again later.',
+      });
+    }
   };
 
   return (
@@ -76,9 +121,6 @@ const Contact = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Get In Touch<span className="text-electricLime"> with Vachan Motors</span>
             </h1>
-            {/* <p className="text-xl md:text-2xl mb-8 opacity-90">
-              Whether you're ready to switch to electric or just have a question — our team is here to support your journey every step of the way.
-            </p> */}
           </div>
         </div>
       </section>
@@ -87,6 +129,7 @@ const Contact = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Column 1: Contact Info */}
             <div>
               <h2 className="text-3xl font-bold mb-8">Reach Out To Us</h2>
               
@@ -142,30 +185,9 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-              
-              <div className="mt-12">
-                <h3 className="font-semibold text-xl mb-4">Connect With Us</h3>
-                <div className="flex space-x-4">
-                  {['facebook', 'twitter', 'instagram', 'linkedin', 'youtube'].map((social) => (
-                    <a 
-                      key={social}
-                      href={`https://${social}.com`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-electricLime hover:text-white transition-colors"
-                    >
-                      <span className="sr-only">{social}</span>
-                      <img 
-                        src={`https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/${social}.svg`} 
-                        className="w-5 h-5"
-                        alt={social}
-                      />
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
 
+            {/* Column 2: Form */}
             <div className="bg-gray-50 p-8 rounded-lg">
               <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
 
@@ -368,7 +390,6 @@ const Contact = () => {
                           <option value="₹10-20 Lakhs">₹10 Lakhs</option>
                           <option value="₹20-50 Lakhs">₹25 Lakhs</option>
                           <option value="₹50 Lakhs - 1 Crore">₹50 Lakhs </option>
-                          {/* <option value="Above 1 Crore">Above 1 Crore</option> */}
                         </select>
                       </div>
                     </div>
