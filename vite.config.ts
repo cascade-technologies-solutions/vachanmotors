@@ -5,7 +5,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/vachanmotors/", // For GitHub Pages
+  base: "/", // For GitHub Pages
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"), // Alias for "@/components/..."
