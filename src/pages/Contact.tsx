@@ -13,7 +13,7 @@ const contactInfo = {
   hours: 'Monday - Saturday: 9:00 AM - 6:00 PM'
 };
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFr62GSBhs2cTPAl-AEEeuhLsuALkBbg3S2Z1uogSxfSN6aX3d6D1ZcftyX4qIuIMYTg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby5KheqS5kDxO8RrWlbvpmAqQqhAb6HdcbkJYL5QTgtrd7R9-Y7XXa9zDsoZHDYwWV1IA/exec';
 
 const Contact = () => {
   const { toast } = useToast();
